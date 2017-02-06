@@ -14,7 +14,8 @@ namespace Lime.Web
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                        "~/Scripts/jquery-{version}.js",
-                       "~/Scripts/bootstrap.js"
+                       "~/Scripts/bootstrap.js",
+                       "~/Scripts/jquery-ui-{version}.js"
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/bo").Include(
@@ -22,7 +23,8 @@ namespace Lime.Web
                        ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                     "~/Content/bootstrap.css"
+                     "~/Content/bootstrap.css",
+                     "~/Content/themes/base/all.css"
                      ));
 
             #endregion
