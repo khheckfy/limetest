@@ -25,11 +25,23 @@ namespace Lime.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> CreateReport(DateTime? from, DateTime? to)
         {
-            BusinessLayout.ExcelReportsHelpers.SalesReport reportHelper = new BusinessLayout.ExcelReportsHelpers.SalesReport(DB);
-            Guid fileId = await reportHelper.CreateReportAsync();
+            string error = null;
+            Guid fileId = Guid.Empty;
+            try
+            {
+                BusinessLayout.ExcelReportsHelpers.SalesReport reportHelper = new BusinessLayout.ExcelReportsHelpers.SalesReport(DB);
+                fileId = await reportHelper.CreateReportAsync(from, to);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
 
-            await Task.FromResult(0);
-            return Json(fileId);
+            return Json(new
+            {
+                error,
+                fileId
+            });
         }
     }
 }

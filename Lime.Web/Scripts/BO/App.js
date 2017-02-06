@@ -4,6 +4,7 @@
     dataType: 'json',
 
     init: function () {
+        App.datePickerLocalize();
         App.initiControls();
     },
 
@@ -19,12 +20,35 @@
         $('#btnDownload')
             .hide()
             .click(App.download);
-        $('#tbFrom,#tbTo').datepicker({ dateFormat: 'dd.mm.yy' });
+        $('#tbFrom,#tbTo').datepicker();
         $('#btnOK').click(App.createReport);
     },
 
     download: function () {
         var id = $(this).attr('fileId');
+    },
+
+    datePickerLocalize: function () {
+        $.datepicker.regional['ru'] = {
+            closeText: 'Закрыть',
+            prevText: '&#x3c;Пред',
+            nextText: 'След&#x3e;',
+            currentText: 'Сегодня',
+            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            monthNamesShort: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
+            dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
+            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            weekHeader: 'Нед',
+            dateFormat: 'dd.mm.yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
     },
 
     createReport: function () {
@@ -43,10 +67,14 @@
             dataType: App.dataType,
             async: true,
             success: function (obj) {
-
-                $('#btnDownload')
-                    .attr('fileId', obj)
-                    .show();
+                if (obj.error) {
+                    alert(obj.error);
+                }
+                else {
+                    $('#btnDownload')
+                        .attr('fileId', obj)
+                        .show();
+                }
             },
             error: function (jqXHR, exception) {
             },
