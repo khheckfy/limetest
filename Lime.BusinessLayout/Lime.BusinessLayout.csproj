@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,7 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelReportsHelpers\SalesReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lime.Core\Lime.Core.csproj">
+      <Project>{06bb82ee-ce13-443f-ad5a-bd1ef73688f9}</Project>
+      <Name>Lime.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lime.Data.EntityFramework\Lime.Data.EntityFramework.csproj">
+      <Project>{17f1078e-9df7-42ca-b1e1-af7c628ee8b1}</Project>
+      <Name>Lime.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lime.Domain\Lime.Domain.csproj">
+      <Project>{5bc8f24d-a708-475e-a93a-40fbb34fedb7}</Project>
+      <Name>Lime.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
