@@ -16,7 +16,8 @@ namespace Lime.Web
                        "~/Scripts/jquery-{version}.js",
                        "~/Scripts/bootstrap.js",
                        "~/Scripts/nprogress.js",
-                       "~/Scripts/jquery-ui-{version}.js"
+                       "~/Scripts/jquery-ui-{version}.js",
+                       "~/Scripts/bootstrap-notify.js"
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/bo").Include(

@@ -14,6 +14,7 @@ namespace Lime.BusinessLayout.ExcelReportsHelpers
 {
     public class SalesReport
     {
+        private static string currencyFormat = "$###,###,##0.00";
         private readonly IUnitOfWork DB;
         public SalesReport(IUnitOfWork db)
         {
@@ -23,8 +24,8 @@ namespace Lime.BusinessLayout.ExcelReportsHelpers
         /// <summary>
         /// Получить данные для текущего отчета
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
+        /// <param name="fromDate">дата с</param>
+        /// <param name="toDate">дата по</param>
         /// <returns></returns>
         private async Task<List<SalesReportItem>> GetDataForReport(DateTime fromDate, DateTime toDate)
         {
@@ -57,7 +58,7 @@ namespace Lime.BusinessLayout.ExcelReportsHelpers
         /// </summary>
         /// <param name="fromDate">Дата с</param>
         /// <param name="toDate">Дата по</param>
-        /// <returns></returns>
+        /// <returns>ID файла</returns>
         public async Task<Guid> CreateReportAsync(DateTime fromDate, DateTime toDate)
         {
             Guid fileId = Guid.NewGuid();
@@ -117,19 +118,24 @@ namespace Lime.BusinessLayout.ExcelReportsHelpers
 
                     ws.Cells[rowIndex, col].Style.Numberformat.Format = "dd.mm.yyyy";
                     ws.Cells[rowIndex, col++].Value = item.OrderDate;
-                    
+
 
                     ws.Cells[rowIndex, col++].Value = item.ProductId;
                     ws.Cells[rowIndex, col++].Value = item.ProductName;
                     ws.Cells[rowIndex, col++].Value = item.Quantity;
+
+                    ws.Cells[rowIndex, col].Style.Numberformat.Format = currencyFormat;
                     ws.Cells[rowIndex, col++].Value = item.Price;
+
+                    
                     ws.Cells[rowIndex, col].Formula = string.Format("{0}*{1}", ws.Cells[rowIndex, col - 1].Address, ws.Cells[rowIndex, col - 2].Address);
+                    ws.Cells[rowIndex, col].Style.Numberformat.Format = currencyFormat;
 
                     rowIndex++;
                 }
 
                 //add borders to data table
-                var modelTable = ws.Cells[startRowTableIndex, 1, rowIndex - 1, col];
+                var modelTable = ws.Cells[startRowTableIndex, 1, rowIndex, col];
 
                 modelTable.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                 modelTable.Style.Border.Left.Style = ExcelBorderStyle.Thin;
@@ -148,10 +154,12 @@ namespace Lime.BusinessLayout.ExcelReportsHelpers
                 ws.Cells[rowIndex, col++].Value = string.Empty;
                 ws.Cells[rowIndex, col++].Formula = string.Format("SUM({0})", ws.Cells[startRowTableIndex + 1, col - 1, rowIndex - 1, col - 1].Address);
                 ws.Cells[rowIndex, col++].Value = string.Empty;
+
+                ws.Cells[rowIndex, col].Style.Numberformat.Format = currencyFormat;
                 ws.Cells[rowIndex, col++].Formula = string.Format("SUM({0})", ws.Cells[startRowTableIndex + 1, col - 1, rowIndex - 1, col - 1].Address);
 
                 ws.Cells[rowIndex, 1, rowIndex, col].Style.Font.Bold = true;
-                ws.Cells[rowIndex, 1, rowIndex, 3].Merge = true;
+                ws.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
 
                 #endregion
 

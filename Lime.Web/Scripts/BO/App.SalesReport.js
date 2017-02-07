@@ -9,6 +9,7 @@
         if (!App.SalesReport.validateForm()) {
             return;
         }
+        $.notify('Отчет формируется, подождите');
         $(this).attr('disabled', 'disabled');
         $('#btnDownload').hide();
         var postData =
@@ -29,7 +30,7 @@
                     alert(obj.error);
                 }
                 else {
-                    $('#fileId').val(obj.fileId);
+                    $.notify('Отчет сформирован и выслан на указанную почту');
                 }
             },
             error: function (jqXHR, exception) {
@@ -61,6 +62,10 @@
                    .focus()
                    .parent()
                    .addClass('has-warning');
+        }
+
+        if (!isValid) {
+            $.notify('Проверьте правильность заполнения данных', { type: 'danger' });
         }
 
         return isValid;
