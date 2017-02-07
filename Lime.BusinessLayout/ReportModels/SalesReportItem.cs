@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lime.BusinessLayout.ReportModels
 {
+    /// <summary>
+    /// Строка отчета в excel
+    /// </summary>
     public class SalesReportItem
     {
         /// <summary>

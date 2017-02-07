@@ -70,7 +70,6 @@ namespace Lime.BusinessLayout.ExcelReportsHelpers
             FileInfo newFile = new FileInfo(fullFileName);
             using (ExcelPackage pck = new ExcelPackage(newFile))
             {
-
                 var ws = pck.Workbook.Worksheets.Add(string.Format("Отчет_{0:dd.MM.yy}", DateTime.Now));
                 int rowIndex = 1;
 

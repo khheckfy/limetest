@@ -33,8 +33,10 @@ namespace Lime.Web.Controllers
             try
             {
                 SalesReport reportHelper = new SalesReport(DB);
+                //Create excel file and get id file
                 fileId = await reportHelper.CreateReportAsync(model.From, model.To);
                 EmailHelper helper = new EmailHelper();
+                //send file on emal
                 await helper.SendSalesReport(fileId, model.From, model.To, model.Email);
             }
             catch (Exception ex)
