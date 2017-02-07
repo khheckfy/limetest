@@ -24,7 +24,7 @@ namespace Lime.Data.EntityFramework.Repositories
             get { return _set ?? (_set = _context.Set<TEntity>()); }
         }
 
-        public IQueryable<TEntity> QueryList()
+        public IQueryable<TEntity> Query()
         {
             return Set.AsQueryable<TEntity>();
         }

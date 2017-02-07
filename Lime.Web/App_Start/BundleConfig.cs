@@ -20,7 +20,8 @@ namespace Lime.Web
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/bo").Include(
-                       "~/Scripts/bo/App.js"
+                       "~/Scripts/bo/App.js",
+                       "~/Scripts/bo/App.SalesReport.js"
                        ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

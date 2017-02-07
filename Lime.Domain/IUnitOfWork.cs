@@ -9,13 +9,17 @@ namespace Lime.Domain
         #region Properties
         
         IOrderRepository OrderRepository { get; }
+        IOrderDetailRepository OrderDetailRepository { get; }
+        IProductRepository ProductRepository { get; }
 
         #endregion
 
         #region Methods
+
         int SaveChanges();
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        
         #endregion
     }
 }

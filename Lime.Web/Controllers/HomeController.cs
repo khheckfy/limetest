@@ -1,4 +1,7 @@
-﻿using Lime.Domain;
+﻿using Lime.BusinessLayout.EmailHelpers;
+using Lime.BusinessLayout.ExcelReportsHelpers;
+using Lime.Domain;
+using Lime.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +26,16 @@ namespace Lime.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> CreateReport(DateTime? from, DateTime? to)
+        public async Task<JsonResult> CreateReport(ReportFilterModel model)
         {
             string error = null;
             Guid fileId = Guid.Empty;
             try
             {
-                BusinessLayout.ExcelReportsHelpers.SalesReport reportHelper = new BusinessLayout.ExcelReportsHelpers.SalesReport(DB);
-                fileId = await reportHelper.CreateReportAsync(from, to);
+                SalesReport reportHelper = new SalesReport(DB);
+                fileId = await reportHelper.CreateReportAsync(model.From, model.To);
+                EmailHelper helper = new EmailHelper();
+                await helper.SendSalesReport(fileId, model.From, model.To, model.Email);
             }
             catch (Exception ex)
             {

@@ -10,10 +10,13 @@ namespace Lime.Data.EntityFramework
     public class UnitOfWork : IUnitOfWork
     {
         #region Fields
+      
         private readonly Model _context;
 
         private IOrderRepository _orderRepository;
-
+        private IProductRepository _productRepository;
+        private IOrderDetailRepository _orderDetailRepository;
+        
         #endregion
 
         #region Constructors
@@ -28,6 +31,16 @@ namespace Lime.Data.EntityFramework
         public IOrderRepository OrderRepository
         {
             get { return _orderRepository ?? (_orderRepository = new OrderRepository(_context)); }
+        }
+
+        public IOrderDetailRepository OrderDetailRepository
+        {
+            get { return _orderDetailRepository ?? (_orderDetailRepository = new OrderDetailRepository(_context)); }
+        }
+
+        public IProductRepository ProductRepository
+        {
+            get { return _productRepository ?? (_productRepository = new ProductRepository(_context)); }
         }
 
         public int SaveChanges()
@@ -83,11 +96,24 @@ namespace Lime.Data.EntityFramework
 
         #region IDisposable Members
 
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
+
         public void Dispose()
         {
-            _orderRepository = null;
-
-            _context.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion

@@ -9,7 +9,7 @@ namespace Lime.Domain.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        IQueryable<TEntity> QueryList();
+        IQueryable<TEntity> Query();
 
         List<TEntity> GetAll();
         Task<List<TEntity>> GetAllAsync();

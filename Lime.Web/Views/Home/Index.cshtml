@@ -5,15 +5,22 @@
 <div class="jumbotron text-center">
     <h1>Отчет по продажам</h1>
     <p class="lead">Задайте период для выгрузки отчета</p>
-    <div class="row">
-        <div class="col-md-1">Период</div>
-        <div class="col-md-3"><input class="form-control" type="text" id="tbFrom" /></div>
-        <div class="col-md-3"><input class="form-control" type="text" id="tbTo" /></div>
-    </div>
-    <br />
-    <p>
-        <a class="btn btn-lg btn-success" href="#" id="btnOK" role="button">Сформировать</a><br />
-        <a class="btn btn-danger" href="#" id="btnDownload" role="button">Скачать</a><br />
-    </p>
+    <form class="form-inline" id="reportForm">
+        <div class="form-group">
+            <label for="tbFrom">Период с</label>
+            <input type="text" class="form-control" id="tbFrom" name="tbFrom" required>
+        </div>
+        <div class="form-group">
+            <label for="tbTo">по</label>
+            <input type="email" class="form-control" id="tbTo" name="tbTo" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="tbEmail" name="tbEmail" class="form-control" placeholder="Введите ваш E-mail" required />
+        </div>
+        <br />
+        <p>
+            <a class="btn btn-lg btn-success" href="#" id="btnOK" role="button">Сформировать</a><br />
+        </p>
+    </form>
 </div>
 
