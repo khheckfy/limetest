@@ -98,7 +98,7 @@ namespace Lime.Data.EntityFramework
 
         private bool disposed = false;
 
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
